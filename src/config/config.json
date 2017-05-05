@@ -1,0 +1,24 @@
+{
+  "production": {
+    "dbString" : "mongodb://mongo/digital-locker",
+    "fcmServerKey": "AAAAFLD1P7s:APA91bFjPlN9kTFWfZj7sQFrErn2fefEQX1JGtn1axqgwJVHL1t4j0nBpiauCzJiV1se8EEA7h7ZGoAP13pZJhpOdkOSO-kIzB5Cr53FCiv1kBskcCaJzn1gbyCZj_hcA6LunEAZvZ2T",
+    "gcmApiKey": "AAAA-yR1ViU:APA91bE4vgG-FGMxmNx5z7qkn3SHnEq9aDChn-gQI3ydUEZygy47jkKF3AgVwlv5WxUjQMUo99lwBtn0i7GDpTNRv-sKk5IBJytoMRuepMD8mKb2lpHyHVLPZ8OCFmJ5vK6OBUTwNnhq",
+    "url": "http://10.51.229.240:5001",
+    "gethUrl": "http://10.51.239.31:8545"
+  },
+  "development" : {
+    "dbString" : "mongodb://10.244.51.109:27017/digital-locker",
+    "fcmServerKey": "AAAAFLD1P7s:APA91bFjPlN9kTFWfZj7sQFrErn2fefEQX1JGtn1axqgwJVHL1t4j0nBpiauCzJiV1se8EEA7h7ZGoAP13pZJhpOdkOSO-kIzB5Cr53FCiv1kBskcCaJzn1gbyCZj_hcA6LunEAZvZ2T",
+    "gcmApiKey": "AAAA-yR1ViU:APA91bE4vgG-FGMxmNx5z7qkn3SHnEq9aDChn-gQI3ydUEZygy47jkKF3AgVwlv5WxUjQMUo99lwBtn0i7GDpTNRv-sKk5IBJytoMRuepMD8mKb2lpHyHVLPZ8OCFmJ5vK6OBUTwNnhq",
+    "url": "http://10.244.51.109:3000",
+    "gethUrl": "http://10.51.239.31:8545"
+  },
+  "statusMsgs": {
+    "202": "Request Accepted",
+    "400": "Oops! You seem to have sent some wrong data",
+    "401": "Auth failed.",
+    "403": "Sorry! You don't have access",
+    "404": "Couldn't find the requested resource",
+    "500": "Sorry, something went wrong. This one is on us"
+  }
+}
