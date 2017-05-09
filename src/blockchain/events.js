@@ -57,8 +57,8 @@ const eventResultToData = (eventResult) => {
         additionalData: {
           info: JSON.stringify(_.omit(argData, ['to']))
         },
-        body: argData.dealId,
-        title: user.email + ' - ' + eventName,
+        body: argData.dealId + ' : ' +  eventName.split(new RegExp('[A-Z]'))[0] + ' deal',
+        title: user.name + ' - ' + user.email,
         "content-available": "1"
       };
 
