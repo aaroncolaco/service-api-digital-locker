@@ -16,7 +16,7 @@ let deleteUrl = usersUrl;
 
 
 const user = {
-  "ethAccount": "0x54ab617553e808286bab2483e92203bc7e9afaa9",
+  "ethAccount": "0x1ec242f959295b04c33bd277ba286c8383b164d8",
   "firebaseToken": "fwuRJg74v7g:APA91bE3GMYUhvRNKZHQCXs4s8NfbmX246e4GOeRS7sk1u2ZGB7NZ89FcffZLfQwo6tpk6_d-mVdemNealVxFc1lxm3bAtqfvt-b4Oe7uLKgdToz5tzIeOD_WSfnblNu4iRcNnMllxKZ",
 };
 
@@ -26,7 +26,7 @@ const fakeUser = {
 };
 
 const updatedUser = {
-  "ethAccount": "0x54ab617553e808286bab2483e92203bc7e9afaa9",
+  "ethAccount": "0x1ec242f959295b04c33bd277ba286c8383b164d8",
   "firebaseToken": "fwuRJg74v7g:APA91bE3GMdsfsdf2ZGB7NZ89FcffZLfQwo6tpk6_d-mVdemNealVxFc1lxm3bAtqfvt-b4Oe7uLKgdToz5tzIeOD_WSfnblNu4iRcNnMllxKZ",
 };
 

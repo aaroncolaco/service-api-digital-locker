@@ -20,11 +20,12 @@ const seedAccount = (amount, toAccount) => {
     value: web3.toWei(amount, "ether") // amount of ether to send converted to wei
   };
   return new Promise((resolve, reject) => {
-    web3.eth.sendTransaction(data, (err, address) => {
+    const txHash = web3.eth.sendTransaction(data, (err, address) => {
       if (err)
         return reject(err);
 
-      return resolve(address);
+      console.log(address, txHash);
+      return resolve(txHash);
     });
   });
 };

@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const lightwallet = require('eth-lightwallet');
 
 const blockchain = require('../blockchain');
 const helpers = require('./helpers');
@@ -10,8 +11,20 @@ const notifications = require('../notifications');
 const addUser = (req, res) => {
   const attributes = reqToUserAttributes(req, res);
 
-  return helpers.createUser(attributes)
-    .then(user => res.status(201).json(user))
+  const signature = res.body.signature;
+  const recoveredAddress = lightwallet.signing.recoverAddress(attributes.firebaseToken, signature.v, signature.r, signature.s);
+  let txHash = null;
+
+  if (recoveredAddress !== attributes.ethAccount) {
+    return errorResponse(res, "Bad Data. Ethereum Account does not match", Error("Bad Data. Ethereum Account does not match."), 400);
+  }
+
+  return blockchain.seedAccount(1, attributes.ethAccount)
+    .then(address => {
+      txHash = address;
+      return helpers.createUser(attributes);
+    })
+    .then(user => res.status(201).json({ user, txHash }))
     .catch(err => {
       console.error(err);
       return errorResponse(res, "Could not add user", err);
