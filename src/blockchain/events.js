@@ -36,29 +36,25 @@ const eventResultToData = (eventResult) => {
 
   const eventName = eventResult.event;
 
-  const argData = JSON.parse(eventResult.args.data);
-  argData.dealId = eventResult.args.deal_id.toString();
+  const receiverEthAccount = eventResult.args.to;
+  const senderEthAccount = eventResult.args.userId;
 
-  const receiverEthAccount = argData.to;
-  const senderEthAccount = argData.from;
+  let to = receiverEthAccount;
 
-  argData.transactionHash = eventResult.transactionHash;
-  argData.status = eventName;
+  if (!to) {
+    to = senderEthAccount;
+  }
 
-  return userHelpers.findUser({ ethAccount: senderEthAccount })
+
+  return userHelpers.findUser({ ethAccount: to })
     .then(user => {
       if (!user) {
         return Promise.reject(Error("Cannot find sender Ethereum user account: " + senderEthAccount));
       }
 
-      argData.invoker = user.email;
-
       const data = {
-        additionalData: {
-          info: JSON.stringify(_.omit(argData, ['to']))
-        },
-        body: argData.dealId + ' : ' +  eventName.split(new RegExp('[A-Z]'))[0] + ' deal',
-        title: user.name + ' - ' + user.email,
+        body: eventName,
+        title: web3.toAscii(eventResult.args.name),
         "content-available": "1"
       };
 
