@@ -26,7 +26,7 @@ allEvents.watch((err, result) => {
   eventResultToData(result)
     .then(eventData => {
       console.log(`Notification: ${JSON.stringify(eventData.message)} \n`);
-      notifyUser(eventData.eventName, eventData.message, eventData.receiverEthAccount);
+      notifyUser(eventData.eventName, eventData.message, eventData.toEthAccount);
     })
     .catch(err => logError('eventResultToData', err));
 });
@@ -39,14 +39,14 @@ const eventResultToData = (eventResult) => {
   const receiverEthAccount = eventResult.args.to;
   const senderEthAccount = eventResult.args.from;
 
-  let to = receiverEthAccount;
+  let toEthAccount = receiverEthAccount;
 
-  if (!to) {
-    to = senderEthAccount;
+  if (!toEthAccount) {
+    toEthAccount = senderEthAccount;
   }
 
 
-  return userHelpers.findUser({ ethAccount: to })
+  return userHelpers.findUser({ ethAccount: toEthAccount })
     .then(user => {
       if (!user) {
         return Promise.reject(Error("Cannot find sender Ethereum user account: " + senderEthAccount));
@@ -65,7 +65,7 @@ const eventResultToData = (eventResult) => {
       const resultData = {
         eventName,
         message,
-        receiverEthAccount
+        toEthAccount
       };
 
       return Promise.resolve(resultData);
@@ -76,11 +76,11 @@ const eventResultToData = (eventResult) => {
     });
 };
 
-const notifyUser = (eventName, message, receiverEthAccount) => {
-  return userHelpers.findUser({ ethAccount: receiverEthAccount })
+const notifyUser = (eventName, message, toEthAccount) => {
+  return userHelpers.findUser({ ethAccount: toEthAccount })
     .then(user => {
       if (!user) {
-        return logError(eventName, Error("Cannot send notification to unknown Ethereum user account: " + receiverEthAccount));
+        return logError(eventName, Error("Cannot send notification to unknown Ethereum user account: " + toEthAccount));
       }
       notifier.gcmMesage(user.firebaseToken, message)
         .then(response => console.log("Then Block: ", JSON.stringify(response)));
