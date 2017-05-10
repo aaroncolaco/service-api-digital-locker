@@ -37,7 +37,7 @@ const eventResultToData = (eventResult) => {
   const eventName = eventResult.event;
 
   const receiverEthAccount = eventResult.args.to;
-  const senderEthAccount = eventResult.args.userId;
+  const senderEthAccount = eventResult.args.from;
 
   let to = receiverEthAccount;
 
@@ -54,7 +54,7 @@ const eventResultToData = (eventResult) => {
 
       const data = {
         body: eventName,
-        title: web3.toAscii(eventResult.args.name),
+        title: web3.toAscii(eventResult.args.docName),
         "content-available": "1"
       };
 
