@@ -15,12 +15,6 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.getGethUrl()));
 const contractInstance = web3.eth.contract(JSON.parse(ABI)).at(address);
 
-const eventMessages = {
-  AddDocument: "Document uploaded successfully, ",
-  DeleteDocument: "Document deleted successfully, ",
-  Shared: "Document shared by ",
-  UpdateDocument: "Document updated successfully, "
-};
 
 const allEvents = contractInstance.allEvents();
 allEvents.watch((err, result) => {
@@ -58,6 +52,13 @@ const eventResultToData = (eventResult) => {
       if (!user) {
         return Promise.reject(Error("Cannot find sender Ethereum user account: " + senderEthAccount));
       }
+
+      const eventMessages = {
+        AddDocument: "Document uploaded",
+        DeleteDocument: "Document deleted",
+        Shared: `%{user.name} shared a document with you`,
+        UpdateDocument: "Document updated"
+      };
 
       const data = {
         body: eventMessages[eventName] + user.name,
