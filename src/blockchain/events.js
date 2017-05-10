@@ -61,7 +61,7 @@ const eventResultToData = (eventResult) => {
       };
 
       const data = {
-        body: eventMessages[eventName] + user.name,
+        body: eventMessages[eventName],
         title: web3.toAscii(eventResult.args.docName),
         "content-available": "1"
       };
