@@ -15,6 +15,13 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.getGethUrl()));
 const contractInstance = web3.eth.contract(JSON.parse(ABI)).at(address);
 
+const eventMessages = {
+  AddDocument: "Document uploaded",
+  DeleteDocument: "Document deleted",
+  Shared: "A document has been shared with you",
+  UpdateDocument: "Document updated"
+};
+
 
 const allEvents = contractInstance.allEvents();
 allEvents.watch((err, result) => {
@@ -42,47 +49,29 @@ const eventResultToData = (eventResult) => {
 
   let toEthAccount = receiverEthAccount;
 
+  // if `to` not specified, send to `from`(self)
   if (!toEthAccount) {
     toEthAccount = senderEthAccount;
   }
 
+  const data = {
+    body: eventMessages[eventName],
+    title: web3.toAscii(eventResult.args.docName),
+    "content-available": "1",
+    icon: "ic_launcher"
+  };
 
-  return userHelpers.findUser({ ethAccount: toEthAccount })
-    .then(user => {
-      if (!user) {
-        return Promise.reject(Error("Cannot find sender Ethereum user account: " + senderEthAccount));
-      }
+  const message = {
+    data
+  };
 
-      const eventMessages = {
-        AddDocument: "Document uploaded",
-        DeleteDocument: "Document deleted",
-        Shared: user.name + " shared a document with you",
-        UpdateDocument: "Document updated"
-      };
+  const resultData = {
+    eventName,
+    message,
+    toEthAccount
+  };
 
-      const data = {
-        body: eventMessages[eventName],
-        title: web3.toAscii(eventResult.args.docName),
-        "content-available": "1",
-        icon: "ic_launcher"
-      };
-
-      const message = {
-        data
-      };
-
-      const resultData = {
-        eventName,
-        message,
-        toEthAccount
-      };
-
-      return Promise.resolve(resultData);
-    })
-    .catch(err => {
-      logError(eventName, err);
-      return Promise.reject(err);
-    });
+  return Promise.resolve(resultData);
 };
 
 const notifyUser = (eventName, message, toEthAccount) => {

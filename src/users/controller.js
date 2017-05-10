@@ -78,14 +78,11 @@ const reqToUserAttributes = (req, res) => {
     return errorResponse(res, "Bad Data. Bad ethAccount", Error("Bad Data. Bad ethAccount."), 400);
   } else if (!req.body.hasOwnProperty('firebaseToken') || !_.isString(req.body.firebaseToken)) {
     return errorResponse(res, "Bad Data. Bad firebaseToken", Error("Bad Data. Bad firebaseToken."), 400);
-  } else if (!req.body.hasOwnProperty('name') || !_.isString(req.body.name)) {
-    return errorResponse(res, "Bad Data. Bad name", Error("Bad Data. Bad name."), 400);
   }
 
   return ({
     ethAccount: req.body.ethAccount,
-    firebaseToken: req.body.firebaseToken,
-    name: req.body.name
+    firebaseToken: req.body.firebaseToken
   });
 };
 
