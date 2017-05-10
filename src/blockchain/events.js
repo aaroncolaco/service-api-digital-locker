@@ -15,6 +15,13 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(config.getGethUrl()));
 const contractInstance = web3.eth.contract(JSON.parse(ABI)).at(address);
 
+const eventMessages = {
+  AddDocument: "Document uploaded successfully",
+  DeleteDocument: "Document deleted successfully",
+  Shared: "Document shared successfully",
+  UpdateDocument: "Document updated successfully"
+};
+
 const allEvents = contractInstance.allEvents();
 allEvents.watch((err, result) => {
   if (err) {
@@ -53,7 +60,7 @@ const eventResultToData = (eventResult) => {
       }
 
       const data = {
-        body: eventName,
+        body: eventMessages[eventName],
         title: web3.toAscii(eventResult.args.docName),
         "content-available": "1"
       };
