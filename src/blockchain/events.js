@@ -56,14 +56,15 @@ const eventResultToData = (eventResult) => {
       const eventMessages = {
         AddDocument: "Document uploaded",
         DeleteDocument: "Document deleted",
-        Shared: `%{user.name} shared a document with you`,
+        Shared: user.name + " shared a document with you",
         UpdateDocument: "Document updated"
       };
 
       const data = {
         body: eventMessages[eventName],
         title: web3.toAscii(eventResult.args.docName),
-        "content-available": "1"
+        "content-available": "1",
+        icon: "ic_launcher"
       };
 
       const message = {
