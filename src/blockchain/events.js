@@ -16,10 +16,10 @@ web3.setProvider(new web3.providers.HttpProvider(config.getGethUrl()));
 const contractInstance = web3.eth.contract(JSON.parse(ABI)).at(address);
 
 const eventMessages = {
-  AddDocument: "Document uploaded successfully",
-  DeleteDocument: "Document deleted successfully",
-  Shared: "Document shared successfully",
-  UpdateDocument: "Document updated successfully"
+  AddDocument: "Document uploaded successfully, ",
+  DeleteDocument: "Document deleted successfully, ",
+  Shared: "Document shared by, ",
+  UpdateDocument: "Document updated successfully, "
 };
 
 const allEvents = contractInstance.allEvents();
@@ -60,7 +60,7 @@ const eventResultToData = (eventResult) => {
       }
 
       const data = {
-        body: eventMessages[eventName],
+        body: eventMessages[eventName] + user.name,
         title: web3.toAscii(eventResult.args.docName),
         "content-available": "1"
       };
