@@ -18,7 +18,7 @@ const contractInstance = web3.eth.contract(JSON.parse(ABI)).at(address);
 const eventMessages = {
   AddDocument: "Document uploaded successfully, ",
   DeleteDocument: "Document deleted successfully, ",
-  Shared: "Document shared by, ",
+  Shared: "Document shared by ",
   UpdateDocument: "Document updated successfully, "
 };
 
