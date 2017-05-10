@@ -11,8 +11,8 @@ const notifications = require('../notifications');
 const addUser = (req, res) => {
   const attributes = reqToUserAttributes(req, res);
 
-  const signature = res.body.signature;
-  const recoveredAddress = lightwallet.signing.recoverAddress(attributes.firebaseToken, signature.v, signature.r, signature.s);
+  const signature = req.body.signature;
+  const recoveredAddress = "0x" + lightwallet.signing.recoverAddress(attributes.firebaseToken, signature.v, signature.r.data, signature.s.data).toString('hex');
   let txHash = null;
 
   if (recoveredAddress !== attributes.ethAccount) {
