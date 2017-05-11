@@ -58,7 +58,8 @@ const eventResultToData = (eventResult) => {
     body: eventMessages[eventName],
     title: web3.toAscii(eventResult.args.docName),
     "content-available": "1",
-    icon: "ic_launcher"
+    icon: "ic_launcher",
+    image: "www/img/icon.png"
   };
 
   const message = {
