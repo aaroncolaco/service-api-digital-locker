@@ -9,6 +9,6 @@ services:
   mongo:
     image: mongo
     volumes:
-      - /data/mongodb/db:/data/db
+      - /data/mongodb/digitalLocker:/data/db
     ports:
       - "27018:27017"
