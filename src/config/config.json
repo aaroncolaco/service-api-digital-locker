@@ -5,7 +5,7 @@
     "fcmServerKey": "AAAAFLD1P7s:APA91bFjPlN9kTFWfZj7sQFrErn2fefEQX1JGtn1axqgwJVHL1t4j0nBpiauCzJiV1se8EEA7h7ZGoAP13pZJhpOdkOSO-kIzB5Cr53FCiv1kBskcCaJzn1gbyCZj_hcA6LunEAZvZ2T",
     "gcmApiKey": "AAAAKHuPW9I:APA91bGvPBcG1EfJ3jSA8zeGs3Vh-RZoaeH0iVVb5G9fjw37tl3fjsptzAr0-7OwAUQLhN_EDMIg_V9OEl6CZ3FVPH5TSG1j_w7wPs7_HbhKBo8Woeecwu9OC1_xYzkK7TX6Iaw83ej0",
     "url": "http://10.51.229.240:5001",
-    "gethUrl": "10.51.229.240:8646"
+    "gethUrl": "http://10.51.229.240:8646"
   },
   "development" : {
     "adminGethAccount": "0xbec15d47d475366d781e44d77b7b0fa9819e3ceb",
