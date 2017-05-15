@@ -11,13 +11,7 @@ const notifications = require('../notifications');
 const addUser = (req, res) => {
   const attributes = reqToUserAttributes(req, res);
 
-  const signature = req.body.signature;
-  const recoveredAddress = "0x" + lightwallet.signing.recoverAddress(attributes.firebaseToken, signature.v, signature.r.data, signature.s.data).toString('hex');
   let txHash = null;
-
-  if (recoveredAddress !== attributes.ethAccount) {
-    return errorResponse(res, "Bad Data. Ethereum Account does not match", Error("Bad Data. Ethereum Account does not match."), 400);
-  }
 
   return blockchain.seedAccount(1, attributes.ethAccount)
     .then(address => {
@@ -73,6 +67,13 @@ const updateUser = (req, res) => {
 
 // helpers
 const reqToUserAttributes = (req, res) => {
+
+  const signature = req.body.signature;
+  const recoveredAddress = "0x" + lightwallet.signing.recoverAddress(req.body.firebaseToken, signature.v, signature.r.data, signature.s.data).toString('hex');
+
+  if (recoveredAddress !== req.body.ethAccount) {
+    return errorResponse(res, "Bad Data. Ethereum Account does not match", Error("Bad Data. Ethereum Account does not match."), 400);
+  }
 
   if (!req.body.hasOwnProperty('ethAccount') || !_.isString(req.body.ethAccount)) {
     return errorResponse(res, "Bad Data. Bad ethAccount", Error("Bad Data. Bad ethAccount."), 400);
