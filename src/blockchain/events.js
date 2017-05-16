@@ -55,6 +55,9 @@ const eventResultToData = (eventResult) => {
   }
 
   const data = {
+    additionalData: {
+      info: JSON.stringify(eventResult)
+    },
     body: eventMessages[eventName],
     title: web3.toAscii(eventResult.args.docName),
     "content-available": "1",
