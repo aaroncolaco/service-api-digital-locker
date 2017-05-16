@@ -44,6 +44,30 @@ const deleteUser = (req, res) => {
     });
 };
 
+const getUserLogs = (req, res) => {
+
+  const where = {
+    index: { from: req.query.ethAccount },
+    filter: { fromBlock: parseInt(req.query.fromBlock), toBlock: parseInt(req.query.toBlock) }
+  };
+
+  if (req.query.hasOwnProperty('docName') || _.isString(req.query.docName)) {
+    where.index.docName = req.query.docName;
+  }
+
+  return blockchain.getUserLogs(where)
+    .then(logs => {
+      if (logs.length === 0) {
+        return errorResponse(res, "No logs found", Error("No logs found"), 404);
+      }
+      res.status(200).json(logs);
+    })
+    .catch(err => {
+      console.error(err);
+      return errorResponse(res, "Could not fetch User logs", err);
+    });
+};
+
 const updateUser = (req, res) => {
   const attributes = reqToUserAttributes(req, res);
 
@@ -94,5 +118,6 @@ const errorResponse = (res, message, error, status = 500) =>
 module.exports = {
   addUser,
   deleteUser,
+  getUserLogs,
   updateUser
 };

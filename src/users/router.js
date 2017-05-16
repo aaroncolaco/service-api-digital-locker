@@ -17,6 +17,7 @@ router.use(function(req, res, next) {
 });
 
 router.post('/', controller.addUser);
+router.get('/logs', controller.getUserLogs);
 router.post('/update', controller.updateUser);
 router.delete('/:id', controller.deleteUser);
 

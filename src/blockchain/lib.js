@@ -29,6 +29,25 @@ const seedAccount = (amount, toAccount) => {
   });
 };
 
+// get all events for certain user (logs)
+const getUserLogs = (where) => {
+  const allEvents = contractInstance.allEvents(where.index, where.filter);
+  return new Promise((resolve, reject) => {
+    allEvents.get((err, result) => {
+      if (err) {
+        logError("getUserLogs", err);
+        return reject(err);
+      }
+      console.log("Result: ", JSON.stringify(result) + "\n");
+      return resolve(result);
+    });
+  });
+};
+
+const logError = (eventName, error) =>
+  console.error("Error in: " + eventName + "\n" + error + "\n\n");
+
 module.exports = {
+  getUserLogs,
   seedAccount
 };
